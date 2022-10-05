@@ -114,7 +114,7 @@ def ahorcado():
             paraules.append(paraula)
     #Es selecciona automaticament una de les 30 paraules
     paraulaSeleccionada = random.choice(paraules)
-    print("Paraula seleccionada: " + paraulaSeleccionada)
+    #print("Paraula seleccionada: " + paraulaSeleccionada)
 
     intents = 2 * len(paraulaSeleccionada)
     #print(str(intents))
@@ -128,13 +128,20 @@ def ahorcado():
         print("--------------------------")    
         #Fem un print de la paraula que estem adivinant, passantla a string per visualitzarla millor
         print("Paraula: " + str(paraulaString.join(paraulaVuida)))
-        lletra= input("Introdueix una lletra : ")
+        lletra= input("Introdueix una lletra : \n")
         #Es pasa la lletra a miniscula, en cas que l´usuari l´ha escriguis en mayuscula
-        lletra= lletra.lower()
+        
          
-        #Controlem que l´usuari hagi introduit un numero o més d´una lletra, o que no hagi escrit res 
+        #Si l´usuari introduiex mes d´una lletra, un numero o res se li tornara a preguntar
         while len(lletra) > 1 or lletra.isdigit() or lletra == "":
-            lletra= input("Introdueix una sola lletra : \n")
+            lletra= input("Introdueix una sola lletra : \n")      
+        
+
+        while lletra.lower() in lletresIntroduides:
+            lletra= input("La lletra " + lletra + " ja l´has introduit, proba amb un altre: \n")
+        
+        lletra= lletra.lower()
+        lletresIntroduides.append(lletra)
 
         if lletra in paraulaSeleccionada:
             print("La lletra " + lletra +  " es correcte")
