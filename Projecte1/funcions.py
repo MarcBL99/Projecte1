@@ -1,0 +1,162 @@
+import random
+#Definim una funció per a cada joc
+def adivinaNumero():
+
+    print("En aquest joc hauràs d´endevinar el número entre 1 i 10, tens 3 intents ")
+    vides = 3
+    numeroGenerat = random.randint(1,10)
+    jocAcabat= False
+    numerosIntroduits= []
+   # print("Numero generat: " + str(numeroGenerat))
+
+    while jocAcabat == False:
+        numero= int(input("Introdueix el numero entre 1 i 10: "))
+
+        #Es preguntarà el número fins que s´introdueixi un número entre 1 i 10
+        while numero < 0 or numero > 10:
+            numero= int(input("Has d´introduir un número entre 1 i 10 "))
+        
+        #Comprobació de que l´usuari no introdueixi un número repetit
+        while numero in numerosIntroduits:
+            numero= int(input("El número " + str(numero) + " ja ha sigut introduit, proba amb un altre "))
+        
+        numerosIntroduits.append(numero)
+        if numero > numeroGenerat:
+            vides= vides -1
+            print("El número " + str(numero) + " es major al numero generat, et queden " + str(vides) + " vides")   
+
+        if numero < numeroGenerat:
+            vides= vides - 1
+            print("El número " + str(numero) + " es menor al numero generat, et queden " + str(vides) + " vides") 
+
+        if numero == numeroGenerat:
+            print("Has guanyat!")
+            jocAcabat= True
+
+        if vides == 0:
+            print("El numero correcte era " + str(numeroGenerat) + ", has perdut")
+            jocAcabat= True
+
+def pedraPaperTisores():
+
+    print("Juga a pedra paper o tisores contra la màquina: pedra guanya a tisores, tisores guanya pedra, paper guanya a pedra")
+    victoriesJug1= 0
+    victoriesJug2= 0
+    jocAcabat = False
+    opcions= ["pedra","paper","tisores"]
+    
+    while jocAcabat == False:
+        jugada1= input("Escull una opció: paper, pedra o tisores\n")
+
+        while jugada1 not in opcions:
+            jugada1= input("Has introduit una opció no vàlida, escriu pedra, paper o tisores\n")
+        
+        jugada2= random.choice(opcions)
+        #print("Jugada maquina: " + jugada)
+
+        #Per cada jugada del jugador 1 analitzem totes les jugades posibles i sumem el marcador de victories al jugador corresponent
+        if jugada1 == "pedra":
+
+            if jugada2 == "tisores":
+                print("Has jugat amb pedra i la maquina ha jugat amb tisores, tu guanyes")
+                victoriesJug1+= 1
+
+            if jugada2 == "paper":
+                print("Has jugat amb pedra i la màquina ha jugat amb paper, guanya la maquina")
+                victoriesJug2+= 1
+        
+        if jugada1 == "tisores":
+
+            if jugada2 == "pedra":
+                print("Has jugat amb tisores i la màquina ha jugat amb pedra, guanya la maquina")
+                victoriesJug2+= 1
+
+            if jugada2 == "paper":
+                print("Has jugat amb tisores i la màquina ha jugat amb paper, tu guanyes")
+                victoriesJug1+= 1
+        
+        if jugada1 == "paper":
+
+            if jugada2 == "tisores":
+                print("Has jugat amb paper i la màquina ha jugat amb tisores, guanya la maquina")
+                victoriesJug2+= 1
+            if jugada2 == "pedra":
+                print("Has jugat amb paper i la maquina ha jugat amb pedra, tu guanyes")
+                victoriesJug1+= 1
+        
+        if jugada1 == jugada2:
+            print("Els 2 jugadors han triat la mateixa opció, es un empat")
+        
+        print("Marcador: " + str(victoriesJug1) + "-" + str(victoriesJug2))
+
+        if victoriesJug1 == 3:
+            print("Has guanyat!")
+            jocAcabat = True
+
+        if victoriesJug2 == 3:
+            print("La màquina ha guanyat")
+            jocAcabat = True
+        print("--------------------------")   
+          
+def ahorcado():
+    print("El joc de l´Ahorcado, introdueix lletres fins que encertis la paraula")
+    paraules = []
+    paraulaVuida = []
+    paraulaString = ""
+    jocAcabat=False
+    lletresIntroduides = []
+    # Obrim el fitxer de les paraules i llegim totes les linies(paraules) del fitxer
+    with open("paraules.txt") as f:
+        paraula = f.readline().strip()
+        paraules.append(paraula)
+        while paraula:
+            paraula = f.readline().strip()
+            paraules.append(paraula)
+    #Es selecciona automaticament una de les 30 paraules
+    paraulaSeleccionada = random.choice(paraules)
+    print("Paraula seleccionada: " + paraulaSeleccionada)
+
+    intents = 2 * len(paraulaSeleccionada)
+    #print(str(intents))
+
+    #S´afegeix un "_" per cada lletra de la paraula
+    for i in range (0,len(paraulaSeleccionada)):
+        paraulaVuida += "_"
+    
+    
+    while jocAcabat == False:  
+        print("--------------------------")    
+        #Fem un print de la paraula que estem adivinant, passantla a string per visualitzarla millor
+        print("Paraula: " + str(paraulaString.join(paraulaVuida)))
+        lletra= input("Introdueix una lletra : ")
+        #Es pasa la lletra a miniscula, en cas que l´usuari l´ha escriguis en mayuscula
+        lletra= lletra.lower()
+         
+        #Controlem que l´usuari hagi introduit un numero o més d´una lletra, o que no hagi escrit res 
+        while len(lletra) > 1 or lletra.isdigit() or lletra == "":
+            lletra= input("Introdueix una sola lletra : \n")
+
+        if lletra in paraulaSeleccionada:
+            print("La lletra " + lletra +  " es correcte")
+            
+        else:
+            print("La lletra " + lletra + " no es correcte")
+        
+        intents-= 1
+        print("Intents restants: " + str(intents))
+        
+        for n in range(0,len(paraulaSeleccionada)):
+            #Es substitueix el "_" per la lletra introduida en la posició corresponent
+            if lletra == paraulaSeleccionada[n]:
+                paraulaVuida[n] = lletra
+        
+        if intents == 0:
+            print("Has perdut, la paraula era " + paraulaString.join(paraulaSeleccionada))
+            jocAcabat= True
+        
+        #Si no queden "_" vol dir que la paraula ja ha sigut encertada
+        if "_" not in paraulaVuida:
+            print("Has guanyat!")
+            jocAcabat= True
+        
+        
