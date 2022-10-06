@@ -10,12 +10,10 @@ def adivinaNumero():
    # print("Numero generat: " + str(numeroGenerat))
 
     while jocAcabat == False:
-        numero= int(input("Introdueix el numero entre 1 i 10: "))
-
-        #Es preguntarà el número fins que s´introdueixi un número entre 1 i 10
+        numero= int(input("Introdueix un numero entre 1 i 10 "))
         while numero < 0 or numero > 10:
-            numero= int(input("Has d´introduir un número entre 1 i 10 "))
-        
+            numero= int(input("Has d´introduir un numero entre 1 i 10 "))
+
         #Comprobació de que l´usuari no introdueixi un número repetit
         while numero in numerosIntroduits:
             numero= int(input("El número " + str(numero) + " ja ha sigut introduit, proba amb un altre "))
@@ -129,7 +127,7 @@ def ahorcado():
         #Fem un print de la paraula que estem adivinant, passantla a string per visualitzarla millor
         print("Paraula: " + str(paraulaString.join(paraulaVuida)))
         lletra= input("Introdueix una lletra : \n")
-        #Es pasa la lletra a miniscula, en cas que l´usuari l´ha escriguis en mayuscula
+        
         
          
         #Si l´usuari introduiex mes d´una lletra, un numero o res se li tornara a preguntar
@@ -140,6 +138,7 @@ def ahorcado():
         while lletra.lower() in lletresIntroduides:
             lletra= input("La lletra " + lletra + " ja l´has introduit, proba amb un altre: \n")
         
+        #Es pasa la lletra a miniscula, en cas que l´usuari l´ha escriguis en mayuscula
         lletra= lletra.lower()
         lletresIntroduides.append(lletra)
 
