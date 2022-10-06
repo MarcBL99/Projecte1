@@ -7,28 +7,35 @@ def adivinaNumero():
     numeroGenerat = random.randint(1,10)
     jocAcabat= False
     numerosIntroduits= []
+    numerosPosibles= ["1","2","3","4","5","6","7","8","9","10"]
+    numeroInt = 0
    # print("Numero generat: " + str(numeroGenerat))
 
     while jocAcabat == False:
-        numero= int(input("Introdueix un numero entre 1 i 10 "))
-        while numero < 0 or numero > 10:
-            numero= int(input("Has d´introduir un numero entre 1 i 10 "))
-
+        numero= input("Introdueix un numero entre 1 i 10 ")
+        #Si el valor introduit no es troba a la llista es tindra que ingresar un nou valor valid
+        while numero not in numerosPosibles:
+            numero= input("Has d´introduir un numero entre 1 i 10 ")
+        
+        
         #Comprobació de que l´usuari no introdueixi un número repetit
         while numero in numerosIntroduits:
-            numero= int(input("El número " + str(numero) + " ja ha sigut introduit, proba amb un altre "))
+            numero= input("El número " + str(numero) + " ja ha sigut introduit, proba amb un altre ")
         
         numerosIntroduits.append(numero)
-        if numero > numeroGenerat:
+
+        #Paso el numero a int per poder comparar si es menor o major al numero generat
+        numeroInt=int(numero)
+        if numeroInt > numeroGenerat:
             vides= vides -1
-            print("El número " + str(numero) + " es major al numero generat, et queden " + str(vides) + " vides")   
+            print("El número " + str(numeroInt) + " es major al numero generat, et queden " + str(vides) + " vides")   
 
-        if numero < numeroGenerat:
+        if numeroInt < numeroGenerat:
             vides= vides - 1
-            print("El número " + str(numero) + " es menor al numero generat, et queden " + str(vides) + " vides") 
+            print("El número " + str(numeroInt) + " es menor al numero generat, et queden " + str(vides) + " vides") 
 
-        if numero == numeroGenerat:
-            print("Has guanyat!")
+        if numeroInt == numeroGenerat:
+            print("Has guanyat!, el numero era el " + str(numeroGenerat))
             jocAcabat= True
 
         if vides == 0:
